@@ -58,6 +58,7 @@ var Player = function(x, y,sprite) {
 
     };
 
+
     Player.prototype.update = function(dt) {
 
     this.x*dt;
@@ -78,7 +79,7 @@ Player.prototype.handleInput = function(direction){
     if(direction==='left'&&this.x>0) {
         this.x-=100;
     }
-    if(direction==='up'&&this.y>=80) {
+    if(direction==='up'&&this.y>=85) {
         this.y-=100;
     }
     if(direction==='down'&&this.y<=350) {
@@ -102,3 +103,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode])
 });
+
+
