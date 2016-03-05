@@ -1,7 +1,5 @@
-// Enemies our player must avoid
 
-
-var Enemy = function(x,y, sprite, speed) {
+var Enemy = function(x,y, sprite,speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -9,21 +7,18 @@ var Enemy = function(x,y, sprite, speed) {
     // a helper we've provided to easily load images
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    this.speed=speed;
     this.sprite = 'images/enemy-bug.png';
     };
 
-    Enemy.prototype.render = function() {
-        return(sprite)
-    };
     Enemy.prototype.update = function(dt) {
-        this.speed=this.x*100;
+        
       
      if (this.x>=505) {
-        
-        this.x=(Math.random)(100);
+        //ask why it's not really random and they move pretty slowly
+        this.x=Math.random()+(dt*85);
     }
-    else this.x=this.x+Math.random(500);
+    else this.x=this.x+Math.random(500)+(dt*85);
      
   };  
 
@@ -41,8 +36,8 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 var enemy1= new Enemy(100,146,200);
-var enemy2 = new Enemy(300,246,205);
-var enemy3 = new Enemy(200,346,208);
+var enemy2 = new Enemy(300,226,205);
+var enemy3 = new Enemy(200,76,208);
 var allEnemies = [enemy1, enemy2,enemy3];
 
 
@@ -55,22 +50,27 @@ var Player = function(x, y,sprite) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/char-cat-girl.png';
-
+    
     };
-
+ 
 
     Player.prototype.update = function(dt) {
 
     this.x*dt;
     this.y*dt;
-};
+    if (this.y<=10){
+        this.x=200;
+        this.y=420;
+    }
 
+};
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
 };
 Player.prototype.handleInput = function(direction){
     if(direction==='right'&&this.x<400) {
@@ -79,18 +79,20 @@ Player.prototype.handleInput = function(direction){
     if(direction==='left'&&this.x>0) {
         this.x-=100;
     }
-    if(direction==='up'&&this.y>=85) {
-        this.y-=100;
+    if(direction==='up'&&this.y>=40) {
+        this.y-=85;
     }
     if(direction==='down'&&this.y<=350) {
-        this.y+=100;
+        this.y+=85;
     }
      };
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player(200,420);   
-
+var player = new Player(200,420); 
+  
+        
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
