@@ -13,20 +13,18 @@
 
     Enemy.prototype.update = function(dt) {
        //makes it so if it goes off the canvas it reappears 
+       
       
      if (this.x>=505) {
-        //ask why it's not really random and they move pretty slowly
         this.x=-85;
     }
     else this.x=this.x+(this.speed*dt);
     // console.log("Enemy is "+ this.x,this.y);
      
   };  
-
     //set enemy position  
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
-
 
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -36,10 +34,17 @@
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-var enemy1= new Enemy(100,240,400);
-var enemy2 = new Enemy(200,140,300);
-var enemy3 = new Enemy(0,60,205);
+var enemy1 = new Enemy (100,240,400);
+var enemy2 = new Enemy (200,160,300);
+var enemy3 = new Enemy (0,60,205);
 var allEnemies = [enemy1,enemy2,enemy3];
+//var allEnemies = [];
+//var enemy = function() {
+    //for (var i=0; i<3; i++); {
+    //enemy=new Enemy();
+    //allEnemies.push();   
+   //} 
+//};
 
 
 // Now write your own player class
@@ -70,10 +75,17 @@ var Player = function(x, y,sprite) {
    //171 + this.y > enemy1.y) {
     // collision detected!
    //} 
-        //if (this.x===enemy3.x&&this.y===enemy3.y){
-            //debugger;
-        //}
-          if (this.x >= enemy2.x + 6 && 
+        
+          if (this.x >= enemy1.x + 6 && 
+        this.x < enemy1.x + 36 &&
+        this.y >= enemy1.y + 6 &&
+        this.y < enemy1.y + 36) 
+            {
+        
+          console.log("Game over!");
+         this.reset();
+     }
+     else if (this.x >= enemy2.x + 6 && 
         this.x < enemy2.x + 36 &&
         this.y >= enemy2.y + 6 &&
         this.y < enemy2.y + 36) 
@@ -81,11 +93,20 @@ var Player = function(x, y,sprite) {
         
           console.log("Game over!");
          this.reset();
+     }
+     else if (this.x >= enemy3.x + 6 && 
+        this.x < enemy3.x + 36 &&
+        this.y >= enemy3.y + 6 &&
+        this.y < enemy3.y + 36) 
+            {
+        
+          console.log("Game over!");
+         this.reset();
+     }
       }; 
         
-};
 //};
- 
+//};
  
     Player.prototype.update = function() {
         //collision detection
@@ -95,8 +116,7 @@ var Player = function(x, y,sprite) {
         console.log("You win sister!");
         this.reset();
      }
-    //this.x*dt;
-    //this.y*dt;
+    
     };
       
     // You should multiply any movement by the dt parameter
@@ -114,7 +134,7 @@ Player.prototype.handleInput = function(direction){
     if(direction==='left'&&this.x>0) {
         this.x-=100;
     }
-    if(direction==='up'&&this.y>=40) {
+    if(direction==='up'&&this.y>=20) {
         this.y-=60;
     }
     if(direction==='down'&&this.y<=350) {
@@ -130,8 +150,23 @@ Player.prototype.handleInput = function(direction){
      };
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+
+
 // Place the player object in a variable called player
 var player = new Player(200,430); 
+
+//allEnemies.forEach(checkCollisions(enemy)) {
+    //if (player.x >= enemy.x + 6 && 
+        //player.x < enemy.x + 36 &&
+        //player.y >= enemy.y + 6 &&
+        //player.y < enemy.y + 36);
+   //{
+          //console.log("Game over!");
+         //player.reset();
+      //}
+     //}; 
+
+ 
   
  //player.checkCollisions();       
 // This listens for key presses and sends the keys to your
@@ -144,7 +179,7 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode])
+    player.handleInput(allowedKeys[e.keyCode]);
 });
 
 
