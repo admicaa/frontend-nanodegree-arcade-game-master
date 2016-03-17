@@ -1,5 +1,6 @@
 
-    var Enemy = function(x,y,speed) {
+    var Enemy = function(x,y,speed)
+         {
         // Variables applied to each of our instances go here,
         // we've provided one for you to get started
 
@@ -9,6 +10,8 @@
         this.y = y;
         this.sprite = 'images/enemy-bug.png';
         this.speed=speed;
+        this.width=101;
+        this.height=171;
         };
 
     Enemy.prototype.update = function(dt) {
@@ -19,7 +22,7 @@
         this.x=-85;
     }
     else this.x=this.x+(this.speed*dt);
-    // console.log("Enemy is "+ this.x,this.y);
+    //console.log("Enemy is "+ Math.floor(this.x),Math.floor(this.y));
      
   };  
     //set enemy position  
@@ -38,14 +41,6 @@ var enemy1 = new Enemy (100,240,400);
 var enemy2 = new Enemy (200,160,300);
 var enemy3 = new Enemy (0,60,205);
 var allEnemies = [enemy1,enemy2,enemy3];
-//var allEnemies = [];
-//var enemy = function() {
-    //for (var i=0; i<3; i++); {
-    //enemy=new Enemy();
-    //allEnemies.push();   
-   //} 
-//};
-
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -56,6 +51,8 @@ var Player = function(x, y,sprite) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/char-cat-girl.png';
+    this.width=101;
+    this.height=171;
     
     };
 
@@ -66,47 +63,39 @@ var Player = function(x, y,sprite) {
     };
 
     Player.prototype.checkCollisions = function () {
-        //for (var i=0; i < allEnemies.length; i++){
-            //determine rows enemy1,2,3 can be on
+        for (var i=0; i < allEnemies.length; i++){
+            
+  //if ((this.x + this.width) >= (allEnemies[i].x) || ((this.x) <= (allEnemies[i].x + allEnemies[i].width))
 
-//if (this.x > enemy1.x + 55 &&
-   //this.x + 55 > enemy1.x &&
-   //this.y < enemy1.y + 0 &&
-   //171 + this.y > enemy1.y) {
+     //&& ((this.y + this.height) >= (allEnemies[i].y) || (allEnemies[i].y) <= (allEnemies[i].y + allEnemies[i].height))
+              //{
+                 //console.log("Game over!");
+          //this.reset();
+     //};
+     //}
+     //}; 
+
+//collision has occurred, handle collision
+//if (this.x > i.x + 55 &&
+   //this.x + 55 > i.x &&
+   //this.y < i.y + 0 &&
+   //171 + this.y > i.y) {
     // collision detected!
-   //} 
+   //}
+  //};  
         
-          if (this.x >= enemy1.x + 6 && 
-        this.x < enemy1.x + 36 &&
-        this.y >= enemy1.y + 6 &&
-        this.y < enemy1.y + 36) 
-            {
+           if (this.x >= allEnemies[i].x + 6 && 
+         this.x < allEnemies[i].x + 36 &&
+        this.y >= allEnemies[i].y + 6 &&
+        this.y < allEnemies[i].y + 36) 
+             {
         
-          console.log("Game over!");
-         this.reset();
-     }
-     else if (this.x >= enemy2.x + 6 && 
-        this.x < enemy2.x + 36 &&
-        this.y >= enemy2.y + 6 &&
-        this.y < enemy2.y + 36) 
-            {
-        
-          console.log("Game over!");
-         this.reset();
-     }
-     else if (this.x >= enemy3.x + 6 && 
-        this.x < enemy3.x + 36 &&
-        this.y >= enemy3.y + 6 &&
-        this.y < enemy3.y + 36) 
-            {
-        
-          console.log("Game over!");
-         this.reset();
-     }
+           console.log("Game over!");
+          this.reset();
+      }
+  }
       }; 
-        
-//};
-//};
+    
  
     Player.prototype.update = function() {
         //collision detection
@@ -116,6 +105,7 @@ var Player = function(x, y,sprite) {
         console.log("You win sister!");
         this.reset();
      }
+      console.log("Player is " + this.x,this.y);
     
     };
       
@@ -145,7 +135,7 @@ Player.prototype.handleInput = function(direction){
         this.y=430;
     }
 
-    console.log("Player is " + this.x,this.y);
+   
 
      };
 // Now instantiate your objects.
@@ -155,20 +145,7 @@ Player.prototype.handleInput = function(direction){
 // Place the player object in a variable called player
 var player = new Player(200,430); 
 
-//allEnemies.forEach(checkCollisions(enemy)) {
-    //if (player.x >= enemy.x + 6 && 
-        //player.x < enemy.x + 36 &&
-        //player.y >= enemy.y + 6 &&
-        //player.y < enemy.y + 36);
-   //{
-          //console.log("Game over!");
-         //player.reset();
-      //}
-     //}; 
-
- 
-  
- //player.checkCollisions();       
+      
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
